@@ -35,11 +35,12 @@ namespace JRun
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 			if(files.Length > 0)
 			{
-				if(files[0].Contains(".class"))
-				{
+				
 
 					DialogResult dialogResult = MessageBox.Show("Would you like to run this .class file?", "Confirmation", MessageBoxButtons.OKCancel);
-					if (dialogResult == DialogResult.OK)
+				if (dialogResult == DialogResult.OK)
+				{
+					if (files[0].Contains(".class"))
 					{
 						string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 						string exeLocation = "";
@@ -73,9 +74,49 @@ namespace JRun
 						p.WaitForExit();
 
 						Directory.Delete(exeLocation + @"\$jcache$", true);
+
 					}
-					
-					
+					if (files[0].Contains(".java"))
+					{
+						string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+						string exeLocation = "";
+						if (!Directory.Exists(appData + @"\NerdIt"))
+						{
+							Directory.CreateDirectory(appData + @"\NerdIt");
+						}
+						exeLocation = appData + @"\NerdIt";
+						string directory = "";
+						files[0] = files[0].Replace(@"\", "?");
+						string[] pathSplit = files[0].Split('?');
+						for (int i = 0; i < pathSplit.Length - 1; i++)
+						{
+							directory += pathSplit[i] + @"\";
+						}
+						var f = File.Create(directory + @"\compile_" + pathSplit[pathSplit.Length - 1].Replace(".java", "") + ".bat");
+						f.Close();
+						
+						using (StreamWriter sw = new StreamWriter(directory + @"\compile_" + pathSplit[pathSplit.Length - 1].Replace(".java", "") + ".bat"))
+						{
+							
+							sw.WriteLine("@echo off");
+							sw.WriteLine("javac " + directory + pathSplit[pathSplit.Length - 1]);
+							sw.WriteLine("cls");
+							sw.WriteLine("java -classpath " + directory + " " + pathSplit[pathSplit.Length - 1].Replace(".java", ""));
+							sw.Flush();
+							sw.Close();
+						}
+
+						var p = Process.Start(directory + @"\compile_" + pathSplit[pathSplit.Length - 1].Replace(".java", "") + ".bat");
+
+						p.WaitForExit();
+
+						File.Delete(directory + @"\compile_" + pathSplit[pathSplit.Length - 1].Replace(".java", "") + ".bat");
+						if(Directory.Exists(exeLocation + @"\$jcache$"))
+							Directory.Delete(exeLocation + @"\$jcache$", true);
+
+					}
+
+
 				}
 			}
 		}
