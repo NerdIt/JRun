@@ -1,0 +1,10 @@
+C:\Users\isaac\source\repos\JRun\bin\Release\JRun.exe.config
+C:\Users\isaac\source\repos\JRun\bin\Release\JRun.exe
+C:\Users\isaac\source\repos\JRun\bin\Release\JRun.pdb
+C:\Users\isaac\source\repos\JRun\bin\Release\Microsoft.ExtendedReflection.dll
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.Form1.resources
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.csproj.GenerateResource.cache
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.csproj.CoreCompileInputs.cache
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.csproj.CopyComplete
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.exe
+C:\Users\isaac\source\repos\JRun\obj\Release\JRun.pdb
